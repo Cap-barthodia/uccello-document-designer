@@ -189,6 +189,8 @@ class DocumentProcessor extends TemplateProcessor
             unset($item);
         } else {
             $replace = static::ensureUtf8Encoded($replace);
+            $replace = str_replace('&amp;', '&', $replace);
+            $replace = str_replace('&', '&amp;', $replace); // Else the docx generated is corrupted
         }
 
         // TODO: Enable ???
