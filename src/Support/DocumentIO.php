@@ -66,6 +66,11 @@ class DocumentIO
         $file = basename($inFile);
         $path = dirname($inFile);
 
-        exec("/usr/bin/soffice --headless --convert-to pdf --outdir \"$path\" \"$path/$file\"");
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') // Commande windows
+            $cmd = "\"C:\Program Files\LibreOffice 5\program\soffice.exe\"";
+        else // Commande Linux
+            $cmd = "/usr/bin/soffice";
+
+        exec("$cmd --headless --convert-to pdf --outdir \"$path\" \"$path/$file\"");
     }
 }
